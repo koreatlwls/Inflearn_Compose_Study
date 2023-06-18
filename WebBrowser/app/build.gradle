@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.kimsijin.webbrowser'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.kimsijin.webbrowser"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -60,4 +60,7 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
 }
