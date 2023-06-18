@@ -2,20 +2,28 @@ package com.kimsijin.electronicpictureframe.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import coil.compose.rememberImagePainter
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.rememberPagerState
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,3 +70,38 @@ fun PermissionRequestScreen(onClick: () -> Unit) {
     }
 }
 
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun HomeScreen(photoUris: List<Uri>) {
+    val pagerState = rememberPagerState()
+
+    Column(modifier = Modifier.fillMaxSize()) {
+
+        HorizontalPager(
+            state = pagerState,
+            count = photoUris.size,
+            modifier = Modifier
+                .weight(1f)
+                .padding(16.dp)
+                .fillMaxSize()
+        ) { pageIndex ->
+            Card() {
+                Image(
+                    painter = rememberImagePainter(
+                        data = photoUris[pageIndex],
+                    ),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop,
+                )
+            }
+        }
+
+        HorizontalPagerIndicator(
+            pagerState = pagerState,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(16.dp)
+        )
+    }
+}
