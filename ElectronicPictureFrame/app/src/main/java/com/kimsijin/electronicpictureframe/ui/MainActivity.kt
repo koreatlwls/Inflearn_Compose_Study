@@ -1,4 +1,4 @@
-package com.kimsijin.electronicpictureframe
+package com.kimsijin.electronicpictureframe.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
