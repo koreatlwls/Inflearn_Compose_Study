@@ -1,4 +1,4 @@
-package com.kimsijin.xylophone
+package com.kimsijin.xylophone.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
