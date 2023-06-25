@@ -1,34 +1,40 @@
 package com.kimsijin.xylophone.ui
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kimsijin.xylophone.ui.theme.XylophoneTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel by viewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
         super.onCreate(savedInstanceState)
         setContent {
-
+            XylophoneScreen(viewModel = viewModel)
         }
     }
 }
 
 @Composable
-fun XylophoneScreen() {
+fun XylophoneScreen(
+    viewModel: MainViewModel
+) {
     val keys = listOf(
         Pair("도", Color.Red),
         Pair("레", Color(0xFFFF9800)),
@@ -50,7 +56,11 @@ fun XylophoneScreen() {
             Keyboard(
                 color = key.second,
                 text = key.first,
-                modifier = Modifier.padding(vertical = padding.dp)
+                modifier = Modifier
+                    .padding(vertical = padding.dp)
+                    .clickable {
+                        viewModel.playSound(index)
+                    }
             )
         }
     }
