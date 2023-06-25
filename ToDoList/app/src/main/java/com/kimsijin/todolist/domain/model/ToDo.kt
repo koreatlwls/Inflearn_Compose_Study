@@ -11,5 +11,5 @@ data class ToDo(
     val isDone: Boolean = false,
 ) {
     @PrimaryKey(autoGenerate = true)
-    var uid: Int = -1
+    var uid: Int = 0
 }

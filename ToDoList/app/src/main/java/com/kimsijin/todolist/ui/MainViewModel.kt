@@ -19,6 +19,15 @@ class MainViewModel(
 
     private var recentlyDeleteToDo: ToDo? = null
 
+    init {
+        viewModelScope.launch {
+            toDoRepository.observeToDos()
+                .collect {
+                    _items.value = it
+                }
+        }
+    }
+
     fun addToDo(text: String) {
         viewModelScope.launch {
             toDoRepository.addToDo(ToDo(title = text))
